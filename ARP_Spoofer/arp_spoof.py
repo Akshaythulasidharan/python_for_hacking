@@ -41,9 +41,8 @@ def restore(destination_ip,source_ip):
 
 
 create_queue()
-time.sleep(5)
 sent_packets_count = 2
-target_ip ="192.168.1.5"
+target_ip ="192.168.1.7"
 gateway_ip ="192.168.1.1"
 try:
     while(True):
