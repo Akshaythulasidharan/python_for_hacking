@@ -8,6 +8,7 @@ def create_queue():
     subprocess.call(["sudo","iptables", "-I", "FORWARD", "-j", "NFQUEUE", "--queue-num", "0"])
     print("[+] Creating queue")
 
+
 def delete_queue():
     subprocess.call(["sudo","iptables","--flush"])
     print("[-] Deleting queue")
