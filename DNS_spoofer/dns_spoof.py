@@ -42,6 +42,7 @@ def process_packet(packet):
     packet.accept()
 
 create_local_queue()
+#create_queue()
 try:
     while(True):
         queue = netfilterqueue.NetfilterQueue()

@@ -16,7 +16,7 @@ def delete_queue():
 
 def process_packet(packet):
     print(packet)
-    #packet.accept()
+    packet.accept()
 
 create_queue()
 try:
