@@ -28,11 +28,16 @@ class Listner:
 
     def execute_remotely(self,command):
         self.reliable_send(command)
-        return self.reliable_recieve()
+        if command[0] == "exit":
+            self.conn.close()
+            exit()
+        else:
+            return self.reliable_recieve()
 
     def run(self):
         while(True):
             command = raw_input(">> ")
+            command = command.split(" ")
             result = self.execute_remotely(command)
             print(result)
 
