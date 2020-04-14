@@ -37,7 +37,7 @@ class Listner:
     def write_file(self,path,content):
         with open(path,"wb") as file:
             file.write(content)
-            return "[+] Upload successful"
+            return "[+] Download successful"
 
     def read_file(self,path):
         with open(path,"rb") as file:
